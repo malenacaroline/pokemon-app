@@ -8,6 +8,7 @@ const StyledInput = styled.input`
   border-radius: 32px;
   background-color: #ffffffdb;
   outline: 0;
+  margin-bottom: 24px;
   &:focus {
     background-color: #fff;
   }

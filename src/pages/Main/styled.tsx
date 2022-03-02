@@ -5,10 +5,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-top: 50px;
 `;
-// const Logo = styled.img`
-//   width: 50px;
-//   height: 50px;
-// `;
 
 export { Container };
