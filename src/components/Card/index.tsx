@@ -13,6 +13,9 @@ import {
   IconRight,
   Category,
   Row,
+  Chip,
+  ListGrid,
+  TypeIcon,
 } from "./styled";
 import {
   BsStars,
@@ -21,8 +24,11 @@ import {
   BsFillEyeSlashFill,
 } from "react-icons/bs";
 
+import { typesObj } from "../../utils/types";
+
 interface CardProps {
-  title?: string;
+  id: number;
+  name?: string;
   image: string;
   imageShiny: string;
   abilities: {
@@ -38,21 +44,38 @@ interface CardProps {
     };
   }[];
 }
-const Card: FC<CardProps> = ({
-  title,
-  image,
-  imageShiny,
-  abilities,
-  types,
-}) => {
+
+type Pokemon = {
+  abilities: {
+    ability: {
+      name: string;
+    };
+    is_hidden: boolean;
+  }[];
+  id: number;
+  name: string;
+  sprites: {
+    front_default: string;
+    front_shiny: string;
+  };
+  types: {
+    slot: number;
+    type: {
+      name: string;
+    };
+  }[];
+};
+
+const Card: FC<CardProps> = ({ name, image, imageShiny, abilities, types }) => {
   const [isShiny, setShiny] = useState(false);
   const handleShiny = () => {
     setShiny(!isShiny);
   };
+
   return (
     <Container>
       <Header>
-        {title && <Title>{title}</Title>}
+        {name && <Title>{name}</Title>}
         <Button
           text="Shiny"
           onClick={handleShiny}
@@ -62,27 +85,19 @@ const Card: FC<CardProps> = ({
           fontSize="12px"
         />
       </Header>
+      <ListGrid>
+        {types.map(({ type }, id) => (
+          <ItemList key={id}>
+            <Chip background={typesObj[type.name].background}>
+              <TypeIcon src={typesObj[type.name].icon} />
+              {type.name}
+            </Chip>
+          </ItemList>
+        ))}
+      </ListGrid>
       <Content>
         {image && <Image src={isShiny ? imageShiny : image} />}
         <Row>
-          <Category>
-            <Subtitle>
-              <IconLeft>
-                <BsFillBarChartFill />
-              </IconLeft>
-              Types
-            </Subtitle>
-            <List>
-              {types.map(({ type }, id) => (
-                <ItemList key={id}>
-                  <IconLeft>
-                    <BsCheck2Circle />
-                  </IconLeft>
-                  {type.name}
-                </ItemList>
-              ))}
-            </List>
-          </Category>
           <Category>
             <Subtitle>
               <IconLeft>

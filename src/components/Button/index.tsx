@@ -11,7 +11,6 @@ interface ButtonProps {
 }
 const Button: FC<ButtonProps> = ({ ...props }) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('teste');
     props.onClick?.(e);
   };
 

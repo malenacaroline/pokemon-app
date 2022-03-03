@@ -1,2 +1,3 @@
 import { Main } from "./Main";
-export { Main };
+import { Pokedex } from "./Pokedex";
+export { Main, Pokedex };
